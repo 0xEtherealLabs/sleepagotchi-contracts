@@ -1,0 +1,19 @@
+.anchor
+.DS_Store
+target
+**/*.rs.bk
+node_modules
+test-ledger
+.yarn
+.surfpool
+
+# `pnpm tree` output. Real roots and proofs are published, not committed —
+# `fixtures/` is the committed one, and it is only test data.
+out
+
+# Devnet claim signer, generated on demand. Never funded, but still a secret.
+.secrets
+
+# Thirdweb keys for `pnpm token:upload:*`, and the deployer keypair path.
+.env
+!.env.example

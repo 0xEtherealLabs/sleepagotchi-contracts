@@ -1,0 +1,947 @@
+{
+  "generatedBy": "src/scripts/stake-fixture.ts — pnpm stake:fixture",
+  "secondsPerYear": 31536000,
+  "bpsDenominator": 10000,
+  "cases": [
+    {
+      "name": "a sole staker is held to the cap, not paid the pool",
+      "season": {
+        "startTs": 1800000000,
+        "endTs": 1807776000,
+        "rewardPool": "2000000000000000",
+        "maxTotalStaked": "100000000000000000",
+        "maxPerWallet": "1000000000000000",
+        "maxAprBps": 1500,
+        "maxMultiplierBps": 50000
+      },
+      "positions": 1,
+      "events": [
+        {
+          "at": 1800000000,
+          "position": 0,
+          "kind": "stake",
+          "amount": "1000000000000000",
+          "multiplierBps": 10000
+        }
+      ],
+      "settleAt": 1807776000,
+      "expected": {
+        "totalStaked": "1000000000000000",
+        "totalWeighted": "10000000000000000000",
+        "weightedStakeSeconds": "77760000000000000000000000",
+        "positions": [
+          {
+            "amount": "1000000000000000",
+            "multiplierBps": 10000,
+            "weightedStakeSeconds": "77760000000000000000000000",
+            "rawStakeSeconds": "7776000000000000000000",
+            "reward": "36986301369863"
+          }
+        ]
+      }
+    },
+    {
+      "name": "1x and 4x cap identically when the pool is not the binding constraint",
+      "season": {
+        "startTs": 1800000000,
+        "endTs": 1807776000,
+        "rewardPool": "2000000000000000",
+        "maxTotalStaked": "100000000000000000",
+        "maxPerWallet": "1000000000000000",
+        "maxAprBps": 1500,
+        "maxMultiplierBps": 50000
+      },
+      "positions": 2,
+      "events": [
+        {
+          "at": 1800000000,
+          "position": 0,
+          "kind": "stake",
+          "amount": "1000000000000000",
+          "multiplierBps": 10000
+        },
+        {
+          "at": 1800000000,
+          "position": 1,
+          "kind": "stake",
+          "amount": "1000000000000000",
+          "multiplierBps": 40000
+        }
+      ],
+      "settleAt": 1807776000,
+      "expected": {
+        "totalStaked": "2000000000000000",
+        "totalWeighted": "50000000000000000000",
+        "weightedStakeSeconds": "388800000000000000000000000",
+        "positions": [
+          {
+            "amount": "1000000000000000",
+            "multiplierBps": 10000,
+            "weightedStakeSeconds": "77760000000000000000000000",
+            "rawStakeSeconds": "7776000000000000000000",
+            "reward": "36986301369863"
+          },
+          {
+            "amount": "1000000000000000",
+            "multiplierBps": 40000,
+            "weightedStakeSeconds": "311040000000000000000000000",
+            "rawStakeSeconds": "7776000000000000000000",
+            "reward": "36986301369863"
+          }
+        ]
+      }
+    },
+    {
+      "name": "1x and 4x split four to one once the pool binds",
+      "season": {
+        "startTs": 1800000000,
+        "endTs": 1807776000,
+        "rewardPool": "10000000000000",
+        "maxTotalStaked": "100000000000000000",
+        "maxPerWallet": "1000000000000000",
+        "maxAprBps": 1500,
+        "maxMultiplierBps": 50000
+      },
+      "positions": 2,
+      "events": [
+        {
+          "at": 1800000000,
+          "position": 0,
+          "kind": "stake",
+          "amount": "1000000000000000",
+          "multiplierBps": 10000
+        },
+        {
+          "at": 1800000000,
+          "position": 1,
+          "kind": "stake",
+          "amount": "1000000000000000",
+          "multiplierBps": 40000
+        }
+      ],
+      "settleAt": 1807776000,
+      "expected": {
+        "totalStaked": "2000000000000000",
+        "totalWeighted": "50000000000000000000",
+        "weightedStakeSeconds": "388800000000000000000000000",
+        "positions": [
+          {
+            "amount": "1000000000000000",
+            "multiplierBps": 10000,
+            "weightedStakeSeconds": "77760000000000000000000000",
+            "rawStakeSeconds": "7776000000000000000000",
+            "reward": "2000000000000"
+          },
+          {
+            "amount": "1000000000000000",
+            "multiplierBps": 40000,
+            "weightedStakeSeconds": "311040000000000000000000000",
+            "rawStakeSeconds": "7776000000000000000000",
+            "reward": "8000000000000"
+          }
+        ]
+      }
+    },
+    {
+      "name": "a re-attested multiplier is not retroactive",
+      "season": {
+        "startTs": 1800000000,
+        "endTs": 1807776000,
+        "rewardPool": "10000000000000",
+        "maxTotalStaked": "100000000000000000",
+        "maxPerWallet": "1000000000000000",
+        "maxAprBps": 1500,
+        "maxMultiplierBps": 50000
+      },
+      "positions": 2,
+      "events": [
+        {
+          "at": 1800000000,
+          "position": 0,
+          "kind": "stake",
+          "amount": "500000000000000",
+          "multiplierBps": 10000
+        },
+        {
+          "at": 1800000000,
+          "position": 1,
+          "kind": "stake",
+          "amount": "1000000000000000",
+          "multiplierBps": 10000
+        },
+        {
+          "at": 1800864000,
+          "position": 0,
+          "kind": "stake",
+          "amount": "500000000000000",
+          "multiplierBps": 30000
+        }
+      ],
+      "settleAt": 1807776000,
+      "expected": {
+        "totalStaked": "2000000000000000",
+        "totalWeighted": "40000000000000000000",
+        "weightedStakeSeconds": "289440000000000000000000000",
+        "positions": [
+          {
+            "amount": "1000000000000000",
+            "multiplierBps": 30000,
+            "weightedStakeSeconds": "211680000000000000000000000",
+            "rawStakeSeconds": "7344000000000000000000",
+            "reward": "7313432835820"
+          },
+          {
+            "amount": "1000000000000000",
+            "multiplierBps": 10000,
+            "weightedStakeSeconds": "77760000000000000000000000",
+            "rawStakeSeconds": "7776000000000000000000",
+            "reward": "2686567164179"
+          }
+        ]
+      }
+    },
+    {
+      "name": "emptying a position before the close does not shrink its cap",
+      "season": {
+        "startTs": 1800000000,
+        "endTs": 1807776000,
+        "rewardPool": "10000000000000",
+        "maxTotalStaked": "100000000000000000",
+        "maxPerWallet": "1000000000000000",
+        "maxAprBps": 1500,
+        "maxMultiplierBps": 50000
+      },
+      "positions": 2,
+      "events": [
+        {
+          "at": 1800000000,
+          "position": 0,
+          "kind": "stake",
+          "amount": "1000000000000000",
+          "multiplierBps": 10000
+        },
+        {
+          "at": 1800000000,
+          "position": 1,
+          "kind": "stake",
+          "amount": "1000000000000000",
+          "multiplierBps": 10000
+        },
+        {
+          "at": 1807775999,
+          "position": 0,
+          "kind": "unstake",
+          "amount": "999999999999999"
+        }
+      ],
+      "settleAt": 1807776000,
+      "expected": {
+        "totalStaked": "1000000000000001",
+        "totalWeighted": "10000000000000010000",
+        "weightedStakeSeconds": "155519990000000000000010000",
+        "positions": [
+          {
+            "amount": "1",
+            "multiplierBps": 10000,
+            "weightedStakeSeconds": "77759990000000000000010000",
+            "rawStakeSeconds": "7775999000000000000001",
+            "reward": "4999999678497"
+          },
+          {
+            "amount": "1000000000000000",
+            "multiplierBps": 10000,
+            "weightedStakeSeconds": "77760000000000000000000000",
+            "rawStakeSeconds": "7776000000000000000000",
+            "reward": "5000000321502"
+          }
+        ]
+      }
+    },
+    {
+      "name": "a position opened late earns only the time it was present for",
+      "season": {
+        "startTs": 1800000000,
+        "endTs": 1807776000,
+        "rewardPool": "10000000000000",
+        "maxTotalStaked": "100000000000000000",
+        "maxPerWallet": "1000000000000000",
+        "maxAprBps": 1500,
+        "maxMultiplierBps": 50000
+      },
+      "positions": 2,
+      "events": [
+        {
+          "at": 1800000000,
+          "position": 0,
+          "kind": "stake",
+          "amount": "1000000000000000",
+          "multiplierBps": 10000
+        },
+        {
+          "at": 1805184000,
+          "position": 1,
+          "kind": "stake",
+          "amount": "1000000000000000",
+          "multiplierBps": 10000
+        }
+      ],
+      "settleAt": 1807776000,
+      "expected": {
+        "totalStaked": "2000000000000000",
+        "totalWeighted": "20000000000000000000",
+        "weightedStakeSeconds": "103680000000000000000000000",
+        "positions": [
+          {
+            "amount": "1000000000000000",
+            "multiplierBps": 10000,
+            "weightedStakeSeconds": "77760000000000000000000000",
+            "rawStakeSeconds": "7776000000000000000000",
+            "reward": "7500000000000"
+          },
+          {
+            "amount": "1000000000000000",
+            "multiplierBps": 10000,
+            "weightedStakeSeconds": "25920000000000000000000000",
+            "rawStakeSeconds": "2592000000000000000000",
+            "reward": "2500000000000"
+          }
+        ]
+      }
+    },
+    {
+      "name": "opened and emptied in one slot earns nothing",
+      "season": {
+        "startTs": 1800000000,
+        "endTs": 1807776000,
+        "rewardPool": "10000000000000",
+        "maxTotalStaked": "100000000000000000",
+        "maxPerWallet": "1000000000000000",
+        "maxAprBps": 1500,
+        "maxMultiplierBps": 50000
+      },
+      "positions": 2,
+      "events": [
+        {
+          "at": 1800000000,
+          "position": 0,
+          "kind": "stake",
+          "amount": "1000000000000000",
+          "multiplierBps": 10000
+        },
+        {
+          "at": 1800086400,
+          "position": 1,
+          "kind": "stake",
+          "amount": "1000000000000000",
+          "multiplierBps": 50000
+        },
+        {
+          "at": 1800086400,
+          "position": 1,
+          "kind": "unstake",
+          "amount": "1000000000000000"
+        }
+      ],
+      "settleAt": 1807776000,
+      "expected": {
+        "totalStaked": "1000000000000000",
+        "totalWeighted": "10000000000000000000",
+        "weightedStakeSeconds": "77760000000000000000000000",
+        "positions": [
+          {
+            "amount": "1000000000000000",
+            "multiplierBps": 10000,
+            "weightedStakeSeconds": "77760000000000000000000000",
+            "rawStakeSeconds": "7776000000000000000000",
+            "reward": "10000000000000"
+          },
+          {
+            "amount": "0",
+            "multiplierBps": 50000,
+            "weightedStakeSeconds": "0",
+            "rawStakeSeconds": "0",
+            "reward": "0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "a season nobody staked in pays nothing",
+      "season": {
+        "startTs": 1800000000,
+        "endTs": 1807776000,
+        "rewardPool": "2000000000000000",
+        "maxTotalStaked": "100000000000000000",
+        "maxPerWallet": "1000000000000000",
+        "maxAprBps": 1500,
+        "maxMultiplierBps": 50000
+      },
+      "positions": 1,
+      "events": [],
+      "settleAt": 1807776000,
+      "expected": {
+        "totalStaked": "0",
+        "totalWeighted": "0",
+        "weightedStakeSeconds": "0",
+        "positions": [
+          {
+            "amount": "0",
+            "multiplierBps": 10000,
+            "weightedStakeSeconds": "0",
+            "rawStakeSeconds": "0",
+            "reward": "0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "settling long past the close changes nothing",
+      "season": {
+        "startTs": 1800000000,
+        "endTs": 1807776000,
+        "rewardPool": "2000000000000000",
+        "maxTotalStaked": "100000000000000000",
+        "maxPerWallet": "1000000000000000",
+        "maxAprBps": 1500,
+        "maxMultiplierBps": 50000
+      },
+      "positions": 1,
+      "events": [
+        {
+          "at": 1800000000,
+          "position": 0,
+          "kind": "stake",
+          "amount": "1000000000000000",
+          "multiplierBps": 10000
+        }
+      ],
+      "settleAt": 1839312000,
+      "expected": {
+        "totalStaked": "1000000000000000",
+        "totalWeighted": "10000000000000000000",
+        "weightedStakeSeconds": "77760000000000000000000000",
+        "positions": [
+          {
+            "amount": "1000000000000000",
+            "multiplierBps": 10000,
+            "weightedStakeSeconds": "77760000000000000000000000",
+            "rawStakeSeconds": "7776000000000000000000",
+            "reward": "36986301369863"
+          }
+        ]
+      }
+    },
+    {
+      "name": "magnitudes that overflow a u128 intermediate",
+      "season": {
+        "startTs": 1800000000,
+        "endTs": 1831968000,
+        "rewardPool": "18446744073709551615",
+        "maxTotalStaked": "18446744073709551615",
+        "maxPerWallet": "18446744073709551615",
+        "maxAprBps": 1500,
+        "maxMultiplierBps": 50000
+      },
+      "positions": 2,
+      "events": [
+        {
+          "at": 1800000000,
+          "position": 0,
+          "kind": "stake",
+          "amount": "9223372036854775807",
+          "multiplierBps": 50000
+        },
+        {
+          "at": 1800000000,
+          "position": 1,
+          "kind": "stake",
+          "amount": "9223372036854775807",
+          "multiplierBps": 50000
+        }
+      ],
+      "settleAt": 1831968000,
+      "expected": {
+        "totalStaked": "18446744073709551614",
+        "totalWeighted": "922337203685477580700000",
+        "weightedStakeSeconds": "29485275727417347299817600000000",
+        "positions": [
+          {
+            "amount": "9223372036854775807",
+            "multiplierBps": 50000,
+            "weightedStakeSeconds": "14742637863708673649908800000000",
+            "rawStakeSeconds": "294852757274173472998176000",
+            "reward": "1402457939850520704"
+          },
+          {
+            "amount": "9223372036854775807",
+            "multiplierBps": 50000,
+            "weightedStakeSeconds": "14742637863708673649908800000000",
+            "rawStakeSeconds": "294852757274173472998176000",
+            "reward": "1402457939850520704"
+          }
+        ]
+      }
+    },
+    {
+      "name": "randomised traffic across six positions",
+      "season": {
+        "startTs": 1800000000,
+        "endTs": 1807776000,
+        "rewardPool": "2000000000000000",
+        "maxTotalStaked": "100000000000000000",
+        "maxPerWallet": "1000000000000000",
+        "maxAprBps": 1500,
+        "maxMultiplierBps": 50000
+      },
+      "positions": 6,
+      "events": [
+        {
+          "at": 1800124852,
+          "position": 5,
+          "kind": "stake",
+          "amount": "192872932813164",
+          "multiplierBps": 35770
+        },
+        {
+          "at": 1800207145,
+          "position": 2,
+          "kind": "stake",
+          "amount": "990394097169384",
+          "multiplierBps": 10698
+        },
+        {
+          "at": 1800298140,
+          "position": 3,
+          "kind": "stake",
+          "amount": "777158891548006",
+          "multiplierBps": 26190
+        },
+        {
+          "at": 1800366184,
+          "position": 5,
+          "kind": "unstake",
+          "amount": "177729425710244"
+        },
+        {
+          "at": 1800529477,
+          "position": 0,
+          "kind": "stake",
+          "amount": "662811399929296",
+          "multiplierBps": 43311
+        },
+        {
+          "at": 1800691977,
+          "position": 2,
+          "kind": "stake",
+          "amount": "3655036901867",
+          "multiplierBps": 26258
+        },
+        {
+          "at": 1800711489,
+          "position": 3,
+          "kind": "stake",
+          "amount": "59590397560132",
+          "multiplierBps": 23942
+        },
+        {
+          "at": 1800856477,
+          "position": 2,
+          "kind": "stake",
+          "amount": "1287506608433",
+          "multiplierBps": 14166
+        },
+        {
+          "at": 1800870399,
+          "position": 5,
+          "kind": "stake",
+          "amount": "825208912408074",
+          "multiplierBps": 41259
+        },
+        {
+          "at": 1800904471,
+          "position": 5,
+          "kind": "unstake",
+          "amount": "20072857943456"
+        },
+        {
+          "at": 1800992997,
+          "position": 3,
+          "kind": "stake",
+          "amount": "91769785376874",
+          "multiplierBps": 38937
+        },
+        {
+          "at": 1801010131,
+          "position": 0,
+          "kind": "unstake",
+          "amount": "511749135707721"
+        },
+        {
+          "at": 1801100703,
+          "position": 4,
+          "kind": "stake",
+          "amount": "38826479857020",
+          "multiplierBps": 38671
+        },
+        {
+          "at": 1801216772,
+          "position": 4,
+          "kind": "stake",
+          "amount": "505233320509971",
+          "multiplierBps": 19854
+        },
+        {
+          "at": 1801256396,
+          "position": 4,
+          "kind": "unstake",
+          "amount": "89853678439755"
+        },
+        {
+          "at": 1801416528,
+          "position": 4,
+          "kind": "stake",
+          "amount": "353194982961691",
+          "multiplierBps": 40518
+        },
+        {
+          "at": 1801468569,
+          "position": 4,
+          "kind": "unstake",
+          "amount": "754000751506645"
+        },
+        {
+          "at": 1801591923,
+          "position": 2,
+          "kind": "unstake",
+          "amount": "540492368594497"
+        },
+        {
+          "at": 1801676703,
+          "position": 0,
+          "kind": "stake",
+          "amount": "656703516994162",
+          "multiplierBps": 31285
+        },
+        {
+          "at": 1801710008,
+          "position": 5,
+          "kind": "stake",
+          "amount": "5500524268156",
+          "multiplierBps": 34379
+        },
+        {
+          "at": 1801781981,
+          "position": 5,
+          "kind": "stake",
+          "amount": "27477809433037",
+          "multiplierBps": 48544
+        },
+        {
+          "at": 1801808290,
+          "position": 5,
+          "kind": "unstake",
+          "amount": "618252967698575"
+        },
+        {
+          "at": 1801949830,
+          "position": 1,
+          "kind": "stake",
+          "amount": "457448109062743",
+          "multiplierBps": 17668
+        },
+        {
+          "at": 1802100947,
+          "position": 0,
+          "kind": "stake",
+          "amount": "98381230500920",
+          "multiplierBps": 32325
+        },
+        {
+          "at": 1802161999,
+          "position": 1,
+          "kind": "unstake",
+          "amount": "190657823282850"
+        },
+        {
+          "at": 1802224188,
+          "position": 4,
+          "kind": "stake",
+          "amount": "407098587035800",
+          "multiplierBps": 29284
+        },
+        {
+          "at": 1802238247,
+          "position": 4,
+          "kind": "unstake",
+          "amount": "195136728179090"
+        },
+        {
+          "at": 1802380939,
+          "position": 5,
+          "kind": "unstake",
+          "amount": "61354959674137"
+        },
+        {
+          "at": 1802436716,
+          "position": 3,
+          "kind": "unstake",
+          "amount": "758724031387909"
+        },
+        {
+          "at": 1802437042,
+          "position": 3,
+          "kind": "stake",
+          "amount": "195586157368702",
+          "multiplierBps": 48518
+        },
+        {
+          "at": 1802601764,
+          "position": 4,
+          "kind": "unstake",
+          "amount": "151646206485960"
+        },
+        {
+          "at": 1802715860,
+          "position": 0,
+          "kind": "stake",
+          "amount": "4644490908602",
+          "multiplierBps": 15554
+        },
+        {
+          "at": 1802822950,
+          "position": 5,
+          "kind": "unstake",
+          "amount": "112906858007733"
+        },
+        {
+          "at": 1802944879,
+          "position": 5,
+          "kind": "stake",
+          "amount": "360268054576619",
+          "multiplierBps": 21321
+        },
+        {
+          "at": 1802995442,
+          "position": 5,
+          "kind": "stake",
+          "amount": "427338257225362",
+          "multiplierBps": 47367
+        },
+        {
+          "at": 1803026897,
+          "position": 0,
+          "kind": "stake",
+          "amount": "45753663500219",
+          "multiplierBps": 32625
+        },
+        {
+          "at": 1803080599,
+          "position": 5,
+          "kind": "stake",
+          "amount": "119653602144718",
+          "multiplierBps": 25665
+        },
+        {
+          "at": 1803232869,
+          "position": 3,
+          "kind": "unstake",
+          "amount": "15062451383700"
+        },
+        {
+          "at": 1803329039,
+          "position": 2,
+          "kind": "unstake",
+          "amount": "383921203206382"
+        },
+        {
+          "at": 1803377727,
+          "position": 4,
+          "kind": "unstake",
+          "amount": "59204899849587"
+        },
+        {
+          "at": 1803472735,
+          "position": 3,
+          "kind": "unstake",
+          "amount": "349492567124569"
+        },
+        {
+          "at": 1803603152,
+          "position": 5,
+          "kind": "stake",
+          "amount": "18788307739635",
+          "multiplierBps": 10945
+        },
+        {
+          "at": 1803675614,
+          "position": 3,
+          "kind": "stake",
+          "amount": "210178131110860",
+          "multiplierBps": 45228
+        },
+        {
+          "at": 1803793034,
+          "position": 2,
+          "kind": "unstake",
+          "amount": "16689027723336"
+        },
+        {
+          "at": 1803887879,
+          "position": 1,
+          "kind": "unstake",
+          "amount": "228731320022200"
+        },
+        {
+          "at": 1803947867,
+          "position": 4,
+          "kind": "unstake",
+          "amount": "15546342712180"
+        },
+        {
+          "at": 1804079213,
+          "position": 4,
+          "kind": "unstake",
+          "amount": "23875750082845"
+        },
+        {
+          "at": 1804246987,
+          "position": 0,
+          "kind": "stake",
+          "amount": "37886738341038",
+          "multiplierBps": 48311
+        },
+        {
+          "at": 1804364061,
+          "position": 0,
+          "kind": "unstake",
+          "amount": "945623109457439"
+        },
+        {
+          "at": 1804527331,
+          "position": 4,
+          "kind": "stake",
+          "amount": "913616212536998",
+          "multiplierBps": 32097
+        },
+        {
+          "at": 1804584342,
+          "position": 2,
+          "kind": "stake",
+          "amount": "409331802097174",
+          "multiplierBps": 20519
+        },
+        {
+          "at": 1804631535,
+          "position": 0,
+          "kind": "stake",
+          "amount": "13481125014672",
+          "multiplierBps": 21253
+        },
+        {
+          "at": 1804660818,
+          "position": 5,
+          "kind": "stake",
+          "amount": "9452735830906",
+          "multiplierBps": 33951
+        },
+        {
+          "at": 1804664902,
+          "position": 2,
+          "kind": "stake",
+          "amount": "435661651208764",
+          "multiplierBps": 44947
+        },
+        {
+          "at": 1804780859,
+          "position": 5,
+          "kind": "stake",
+          "amount": "2108317314738",
+          "multiplierBps": 41344
+        },
+        {
+          "at": 1804911133,
+          "position": 5,
+          "kind": "unstake",
+          "amount": "334325692097441"
+        },
+        {
+          "at": 1805036559,
+          "position": 2,
+          "kind": "unstake",
+          "amount": "600543168406397"
+        },
+        {
+          "at": 1805104874,
+          "position": 5,
+          "kind": "stake",
+          "amount": "328013145043450",
+          "multiplierBps": 15184
+        },
+        {
+          "at": 1805208448,
+          "position": 2,
+          "kind": "stake",
+          "amount": "231209987103258",
+          "multiplierBps": 33000
+        },
+        {
+          "at": 1805351220,
+          "position": 3,
+          "kind": "stake",
+          "amount": "31726543115904",
+          "multiplierBps": 14675
+        }
+      ],
+      "settleAt": 1807776000,
+      "expected": {
+        "totalStaked": "2793719118435701",
+        "totalWeighted": "67916645648664774699",
+        "weightedStakeSeconds": "552873481022493139201323878",
+        "positions": [
+          {
+            "amount": "62289920023749",
+            "multiplierBps": 21253,
+            "weightedStakeSeconds": "99791843514819380906686518",
+            "rawStakeSeconds": "3094874915837469155723",
+            "reward": "14720675969546"
+          },
+          {
+            "amount": "38058965757693",
+            "multiplierBps": 17668,
+            "weightedStakeSeconds": "12464459337766366238813680",
+            "rawStakeSeconds": "705482190274301915260",
+            "reward": "3355604025277"
+          },
+          {
+            "amount": "529894313158268",
+            "multiplierBps": 33000,
+            "weightedStakeSeconds": "95060199061370413430476205",
+            "rawStakeSeconds": "4025074037946346137476",
+            "reward": "19145139069379"
+          },
+          {
+            "amount": "242730856184300",
+            "multiplierBps": 14675,
+            "weightedStakeSeconds": "109072021412047235470233440",
+            "rawStakeSeconds": "3214471867542848181189",
+            "reward": "15289535138617"
+          },
+          {
+            "amount": "928705225645418",
+            "multiplierBps": 32097,
+            "weightedStakeSeconds": "109078592808076560163408980",
+            "rawStakeSeconds": "3432357199114872320191",
+            "reward": "16325899919686"
+          },
+          {
+            "amount": "992039837666273",
+            "multiplierBps": 15184,
+            "weightedStakeSeconds": "127406364888413182991705055",
+            "rawStakeSeconds": "5715420225708465452212",
+            "reward": "27185217968552"
+          }
+        ]
+      }
+    }
+  ]
+}

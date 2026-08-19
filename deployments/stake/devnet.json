@@ -1,0 +1,12 @@
+{
+  "cluster": "devnet",
+  "mint": "DADkWa3Vu6XhMSiAPNUCD32f1cM4gzCDANcijUMgsswu",
+  "admin": "BNghkixbVT9fuJoEQpBtdnZB7LQeDuX8PdRGYkd53KT9",
+  "programId": "AbXC8pN6zbyoi3qWxLcMQC3yXhNUHmXpuDJ1bVDadjKG",
+  "config": "GeXSjCV5eS96im9VwNuQP8v2P9Hm6BhUFmPZu9pUDQCy",
+  "stakeSigner": "JDxTi9mCMvDhbhnoPxhxxTtJJCN4r8ytsJYdNXTGtRto",
+  "deployedAt": "2026-08-17T07:53:13.683Z",
+  "transactions": {
+    "initialize": "2dnYYJAGM75vTRamkoCvTYFC1s9xcgpw6SgQFoNSAhDKyTEpgLSEhYiotpKmV1txjAgLRxie9MoEBfENqBfys9ZK"
+  }
+}

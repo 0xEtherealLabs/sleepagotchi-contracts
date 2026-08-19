@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2023",
+    // `bundler` rather than `nodenext`, because `token/` and `deployments/` are
+    // typechecked twice: here, and by the app that imports them through the
+    // submodule under its own bundler-resolution config. nodenext would demand
+    // `.js` on every relative import and a `type: "json"` attribute on every
+    // artifact import — changes the app's build would then have to swallow.
+    // Nothing here runs under bare `node`; tsx resolves both styles.
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "lib": ["es2023"],
+    "types": ["node"],
+    "strict": true,
+    "noUncheckedIndexedAccess": false,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "isolatedModules": true
+  },
+  "include": ["lib/**/*.ts", "scripts/**/*.ts", "token/**/*.ts", "deployments/**/*.ts"]
+}

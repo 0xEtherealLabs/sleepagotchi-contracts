@@ -1,0 +1,47 @@
+[package]
+name = "sleepagotchi_claim"
+version = "0.1.0"
+description = "Signature-authorized claim vault"
+edition.workspace = true
+rust-version.workspace = true
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "sleepagotchi_claim"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
+anchor-debug = []
+custom-heap = []
+custom-panic = []
+
+
+[dependencies]
+# `init-if-needed` for the receipt: the first claim creates it, later ones update it.
+anchor-lang = { version = "1.1.2", features = ["init-if-needed"] }
+# $SLEEP is a plain SPL Token mint, so `token_2022` is not wanted. It is here
+# anyway because anchor-spl 1.1.2's `idl_build.rs` references `token_interface`
+# unconditionally while that module is gated behind `token_2022` — dropping the
+# feature builds the program fine and fails only at IDL generation.
+anchor-spl = { version = "1.1.2", default-features = false, features = [
+    "associated_token",
+    "token",
+    "token_2022",
+] }
+
+[dev-dependencies]
+# Anchor logs events as base64 behind `Program data:`; the tests decode them back.
+base64 = "0.21.7"
+litesvm = "0.10.0"
+solana-message = "3.0.1"
+solana-transaction = "3.0.2"
+solana-signer = "3.0.0"
+solana-keypair = "3.0.1"
+
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(target_os, values("solana"))'] }

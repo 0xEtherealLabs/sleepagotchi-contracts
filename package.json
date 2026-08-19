@@ -1,0 +1,59 @@
+{
+  "name": "@sleepagotchi/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.9"
+  },
+  "scripts": {
+    "setup": "pnpm install --ignore-workspace",
+    "build": "anchor build",
+    "test": "anchor build && cargo test",
+    "clean": "anchor clean",
+    "typecheck": "tsc --noEmit",
+    "check": "pnpm with-env scripts/claim/check.ts && pnpm with-env scripts/stake/check.ts",
+    "with-env": "tsx --env-file-if-exists=.env",
+    "tree": "pnpm with-env scripts/claim/build-tree.ts",
+    "tree:fixture": "pnpm with-env scripts/claim/fixture.ts",
+    "claim:init:devnet": "pnpm with-env scripts/claim/init.ts devnet",
+    "claim:root:devnet": "pnpm with-env scripts/claim/root.ts devnet",
+    "claim:window:devnet": "pnpm with-env scripts/claim/window.ts devnet",
+    "claim:fund:devnet": "pnpm with-env scripts/claim/fund.ts devnet",
+    "claim:harness:devnet": "pnpm with-env scripts/claim/harness.ts devnet",
+    "stake:init:devnet": "pnpm with-env scripts/stake/init.ts devnet",
+    "stake:season:devnet": "pnpm with-env scripts/stake/season.ts devnet",
+    "stake:harness:devnet": "pnpm with-env scripts/stake/harness.ts devnet",
+    "token:deploy:devnet": "pnpm with-env token/deploy.ts devnet",
+    "token:deploy:mainnet": "pnpm with-env token/deploy.ts mainnet-beta",
+    "token:transfer:devnet": "pnpm with-env token/transfer.ts devnet",
+    "token:transfer:mainnet": "pnpm with-env token/transfer.ts mainnet-beta",
+    "token:upload:devnet": "pnpm with-env token/upload.ts devnet",
+    "token:upload:mainnet": "pnpm with-env token/upload.ts mainnet-beta",
+    "token:rename:devnet": "pnpm with-env token/rename.ts devnet",
+    "token:rename:mainnet": "pnpm with-env token/rename.ts mainnet-beta",
+    "token:verify:devnet": "pnpm with-env token/verify.ts devnet",
+    "token:verify:mainnet": "pnpm with-env token/verify.ts mainnet-beta"
+  },
+  "dependencies": {
+    "@metaplex-foundation/mpl-token-metadata": "^3.4.0",
+    "@metaplex-foundation/umi": "^1.5.1",
+    "@metaplex-foundation/umi-bundle-defaults": "^1.5.1",
+    "@noble/hashes": "^1.7.2",
+    "@solana/spl-token": "^0.4.15",
+    "@solana/web3.js": "^1.98.4",
+    "bs58": "^6.0.0",
+    "thirdweb": "^5.120.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "tsx": "^4.23.1",
+    "typescript": "^5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "bigint-buffer",
+      "esbuild"
+    ]
+  }
+}

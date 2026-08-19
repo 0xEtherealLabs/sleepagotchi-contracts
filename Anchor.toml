@@ -1,0 +1,31 @@
+skip_local_validator = true
+
+[toolchain]
+anchor_version = "1.1.2"
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.devnet]
+sleepagotchi_airdrop = "DM6GCMdgn9daiiUCCaiCjrQHWwe3RiNJK3EPcqa2sdBg"
+sleepagotchi_claim = "8igHauFjDNKpTkyATw9cigy7XWxWMbvHotA4S9i4qe1f"
+sleepagotchi_stake = "AbXC8pN6zbyoi3qWxLcMQC3yXhNUHmXpuDJ1bVDadjKG"
+
+[programs.localnet]
+sleepagotchi_airdrop = "DM6GCMdgn9daiiUCCaiCjrQHWwe3RiNJK3EPcqa2sdBg"
+sleepagotchi_claim = "8igHauFjDNKpTkyATw9cigy7XWxWMbvHotA4S9i4qe1f"
+sleepagotchi_stake = "AbXC8pN6zbyoi3qWxLcMQC3yXhNUHmXpuDJ1bVDadjKG"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "cargo test"
+
+# The app builds transactions from the committed IDL, so it has to be a tracked
+# file rather than a build artifact under the gitignored `target/`.
+# `anchor new` rewrites this file and drops comments — check it after running one.
+[hooks]
+post_build = "cp target/idl/*.json target/types/*.ts idl/"

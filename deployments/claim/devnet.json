@@ -1,0 +1,25 @@
+{
+  "cluster": "devnet",
+  "mint": "DADkWa3Vu6XhMSiAPNUCD32f1cM4gzCDANcijUMgsswu",
+  "admin": "BNghkixbVT9fuJoEQpBtdnZB7LQeDuX8PdRGYkd53KT9",
+  "deployedAt": "2026-08-17T07:53:05.998Z",
+  "airdrop": {
+    "programId": "DM6GCMdgn9daiiUCCaiCjrQHWwe3RiNJK3EPcqa2sdBg",
+    "config": "HFqfVYNAJ5kBs5Av6Rek7RWqnR3syTa7FGzyuNBG2Rg4",
+    "vault": "ET1jauDTNYWYPsfRPcwfqGuDaRcjioV7S4ms2EEgK5sR",
+    "root": "0062b9a061c8cd848848ed187a71f48c4a51b1b99cb0b5e1986d45b6cccfb71f",
+    "startTs": 1786953183,
+    "endTs": 1818489183
+  },
+  "claim": {
+    "programId": "8igHauFjDNKpTkyATw9cigy7XWxWMbvHotA4S9i4qe1f",
+    "config": "AQQ3WryNqHUApYqM4guTKg5KnrGQZH3bXE4mDHPJQn8i",
+    "vault": "B6K3ghcMXUadBcxtKMu2XtKqrBbKqpkdYGgv37qm2Ufb",
+    "claimSigner": "HZGZcEdGMcwPPMuWCAZ7a48SvtyUaYPrQoWS1q3h3Eui"
+  },
+  "transactions": {
+    "initializeAirdrop": "4djcLhhyip3DCE23yB9wrR4c8RCXytdM8cCvcRr5NzQkcgwrvzvM4T7Kqw9foGswLqCmcbocYX1cPVY4g9kEr8vw",
+    "initializeClaim": "2THqjppAGhjRiEitfWae1Gzk9t2XVSMuERpW5DDMF6MAT4nzxBP4ywxsHKwLbiFjUMjBKtg5ArBwWhF865J5JN9z",
+    "setRoot": "25nEvDrADvAqAh7t21N86ckrvuuWK29F1W6RwdGJjcfVdViMEV9LA3ZEamqqcJKF4urUjVmABuPDU9gVFk2Zjdgo"
+  }
+}

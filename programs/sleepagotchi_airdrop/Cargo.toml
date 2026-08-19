@@ -1,0 +1,51 @@
+[package]
+name = "sleepagotchi_airdrop"
+version = "0.1.0"
+description = "Merkle-proof airdrop claim vault"
+edition.workspace = true
+rust-version.workspace = true
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "sleepagotchi_airdrop"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
+anchor-debug = []
+custom-heap = []
+custom-panic = []
+
+[dependencies]
+anchor-lang = "1.1.2"
+# $SLEEP is a plain SPL Token mint, so `token_2022` is not wanted. It is here
+# anyway because anchor-spl 1.1.2's `idl_build.rs` references `token_interface`
+# unconditionally while that module is gated behind `token_2022` — dropping the
+# feature builds the program fine and fails only at IDL generation.
+anchor-spl = { version = "1.1.2", default-features = false, features = [
+    "associated_token",
+    "token",
+    "token_2022",
+] }
+# anchor-lang 1.1.2's `solana_program` shim re-exports no hashing module, so the
+# hasher is a direct dependency. `sha3` is mandatory, not an optimisation: on
+# non-Solana targets `hashv` is a `panic!` without it, so every host-side unit
+# test in `merkle.rs` would abort.
+solana-keccak-hasher = { version = "3.1.0", features = ["sha3"] }
+
+[dev-dependencies]
+# Anchor logs events as base64 behind `Program data:`; the tests decode them back.
+base64 = "0.21.7"
+litesvm = "0.10.0"
+solana-message = "3.0.1"
+solana-transaction = "3.0.2"
+solana-signer = "3.0.0"
+solana-keypair = "3.0.1"
+solana-clock = "3.0.0"
+serde_json = "1.0"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(target_os, values("solana"))'] }
