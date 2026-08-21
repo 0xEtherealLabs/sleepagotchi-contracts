@@ -15,12 +15,8 @@ export const parseCluster = (): ClusterName => {
   return name as ClusterName;
 };
 
-/**
- * The only thing taken from the environment — it's a secret and a path.
- * Solana CLI format: a JSON array of the 64 secret key bytes.
- */
-export const loadDeployer = () => {
-  const path = process.env.SOLANA_DEPLOYER_KEYPAIR || "~/.config/solana/id.json";
+/** Solana CLI format: a JSON array of the 64 secret key bytes. */
+const readKeypair = (path: string, hint: string) => {
   const expanded = path.startsWith("~/")
     ? resolve(homedir(), path.slice(2))
     : resolve(path);
@@ -30,10 +26,34 @@ export const loadDeployer = () => {
       Uint8Array.from(JSON.parse(readFileSync(expanded, "utf8"))),
     );
   } catch {
-    throw new Error(
-      `No usable Solana keypair at ${expanded}. Create one with \`solana-keygen new\`, or set SOLANA_DEPLOYER_KEYPAIR.`,
-    );
+    throw new Error(`No usable Solana keypair at ${expanded}. ${hint}`);
   }
+};
+
+/** A secret and a path, so it comes from the environment rather than config.ts. */
+export const loadDeployer = () =>
+  readKeypair(
+    process.env.SOLANA_DEPLOYER_KEYPAIR || "~/.config/solana/id.json",
+    "Create one with `solana-keygen new`, or set SOLANA_DEPLOYER_KEYPAIR.",
+  );
+
+/**
+ * The mint keypair, when the address was ground for a vanity suffix.
+ *
+ * Unset is the normal case — `createMint` generates one, which is what every
+ * deploy did before this existed. Set but unreadable throws rather than falling
+ * back: a run that quietly minted at a random address instead of the ground one
+ * cannot be undone, and the artifact would look identical either way.
+ */
+export const loadMintKeypair = () => {
+  const path = process.env.SOLANA_MINT_KEYPAIR;
+
+  return path
+    ? readKeypair(
+        path,
+        "Grind one with `solana-keygen grind`, or unset SOLANA_MINT_KEYPAIR to have the deploy generate it.",
+      )
+    : undefined;
 };
 
 export type Artifact = {

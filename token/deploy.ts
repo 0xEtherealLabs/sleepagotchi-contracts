@@ -34,6 +34,7 @@ import bs58 from "bs58";
 import {
   artifactPath,
   loadDeployer,
+  loadMintKeypair,
   parseCluster,
   writeArtifact,
 } from "./common";
@@ -103,6 +104,9 @@ const main = async () => {
   }
 
   const deployer = loadDeployer();
+  // Read before the first transaction: a bad path should fail here, not after
+  // the mint exists at some other address.
+  const mintKeypair = loadMintKeypair();
   const treasury = config.treasury
     ? new PublicKey(config.treasury)
     : deployer.publicKey;
@@ -120,6 +124,9 @@ const main = async () => {
   console.log(
     `  treasury: ${treasury.toBase58()}${config.treasury ? "" : " (deployer)"}`,
   );
+  if (mintKeypair) {
+    console.log(`  mint key: ${mintKeypair.publicKey.toBase58()} (pre-generated)`);
+  }
 
   const mint = await createMint(
     connection,
@@ -128,6 +135,8 @@ const main = async () => {
     // Freeze authority: never granted, rather than granted and revoked.
     null,
     TOKEN_DECIMALS,
+    // Undefined falls through to createMint's own `Keypair.generate()`.
+    mintKeypair,
   );
   console.log(`\n  mint:     ${mint.toBase58()}`);
 
