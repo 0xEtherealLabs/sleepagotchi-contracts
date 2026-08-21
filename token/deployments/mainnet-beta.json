@@ -1,0 +1,26 @@
+{
+  "cluster": "mainnet-beta",
+  "mint": "sLEeph9ii4fs16HK6yJx6g8rEACDg3jx4Q8Q4xYRX44",
+  "name": "Sleepagotchi",
+  "symbol": "SLEEP",
+  "decimals": 9,
+  "totalSupplyBaseUnits": "1000000000000000000",
+  "metadataPda": "2H6aLJBAT3srTQzau7jG66horjeoLzBgQ4RqyyngtRoz",
+  "metadataUri": "",
+  "authorities": {
+    "mint": null,
+    "freeze": null,
+    "metadataUpdate": "5aZLE8mpDXQXLaayWtV52P4oTZLPsfkJjk37N2a1mfYU"
+  },
+  "treasury": {
+    "owner": "5aZLE8mpDXQXLaayWtV52P4oTZLPsfkJjk37N2a1mfYU",
+    "tokenAccount": "5CTyx37rUtShtNWQFBfCmQhNmesUeL6oCL37Cv5msR7T"
+  },
+  "deployer": "D8MHw6ED7pxQ6tswQZ5SeWVKQVN8y1N7WbjGQ4qRKEdK",
+  "deployedAt": "2026-08-21T13:26:13.825Z",
+  "transactions": {
+    "metadata": "nHSAVAZMu3K5TQgXy2s8bwwbxDD4VNj4LWokpJ3UAurGfJEbjqTDcPQ7J65x8x8nUoASE7ewPBqRKcQJhwx44GB",
+    "mintSupply": "5gVqPkPBxu1QLtewkyiWKEyqVas5N8zqDBkpXMHWHdN4HU9ee95YXhKVfxL21tcCKRj1JmRVU8Mm3PKjXqLAFrGb",
+    "revokeMintAuthority": "3NEMByuJP2aYQFtEZ5zBJMQaHuv1Pafj8NX7nVtDVyQF8Gz7F1fcLz4Qvg2QGSsXjKVthQ9v1wgRAioMsyPG3f8L"
+  }
+}

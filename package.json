@@ -26,6 +26,8 @@
     "stake:harness:devnet": "pnpm with-env scripts/stake/harness.ts devnet",
     "token:deploy:devnet": "pnpm with-env token/deploy.ts devnet",
     "token:deploy:mainnet": "pnpm with-env token/deploy.ts mainnet-beta",
+    "token:resume:devnet": "pnpm with-env token/resume.ts devnet",
+    "token:resume:mainnet": "pnpm with-env token/resume.ts mainnet-beta",
     "token:transfer:devnet": "pnpm with-env token/transfer.ts devnet",
     "token:transfer:mainnet": "pnpm with-env token/transfer.ts mainnet-beta",
     "token:upload:devnet": "pnpm with-env token/upload.ts devnet",

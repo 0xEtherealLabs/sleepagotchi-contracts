@@ -70,12 +70,12 @@ export const CLUSTERS: Record<ClusterName, ClusterConfig> = {
   },
 
   "mainnet-beta": {
-    rpcUrl: "https://api.mainnet-beta.solana.com",
+    rpcUrl:
+      "https://mainnet.helius-rpc.com/?api-key=07de1afc-dc76-4552-9b07-019969f26021",
     name: "Sleepagotchi",
     symbol: "SLEEP",
     metadataUri: "",
-    treasury: null,
-    blockedReason:
-      "Not configured for production — Squads signer set, total supply and metadata URI are all TBC. A mainnet mint cannot be undone.",
+    treasury: "5aZLE8mpDXQXLaayWtV52P4oTZLPsfkJjk37N2a1mfYU",
+    blockedReason: null,
   },
 };
