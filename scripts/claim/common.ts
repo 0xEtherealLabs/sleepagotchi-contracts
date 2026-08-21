@@ -183,7 +183,7 @@ export function readDeployment(cluster: ClusterName): Deployment {
   try {
     return JSON.parse(readFileSync(deploymentPath(cluster), "utf8")) as Deployment;
   } catch {
-    throw new Error(`No deployment on ${cluster} — run \`pnpm init:${cluster}\` first.`);
+    throw new Error(`No deployment on ${cluster} — run \`pnpm claim:init:${cluster}\` first.`);
   }
 }
 
@@ -193,12 +193,12 @@ export function writeDeployment(cluster: ClusterName, deployment: Deployment): v
 }
 
 /**
- * The root and total the app is shipping, written by `pnpm airdrop:snapshot`.
+ * The root and total being shipped, written by `pnpm tree <snapshot.json>`.
  *
- * Read from the app rather than passed on the command line. These two numbers
- * and the allocation list they came from have to agree, and a root typed by hand
- * is a root that can be typed wrong — the transaction would succeed, and every
- * proof the app serves would fail on chain afterwards.
+ * Read off disk rather than passed on the command line. These two numbers and the
+ * allocation list they came from have to agree, and a root typed by hand is a root
+ * that can be typed wrong — the transaction would succeed, and every proof the app
+ * serves would fail on chain afterwards.
  */
 export interface Published {
   root: string;
@@ -207,22 +207,15 @@ export interface Published {
 }
 
 export function readPublished(): Published {
-  const path = join(
-    import.meta.dirname,
-    "..",
-    "..",
-    "..",
-    "src",
-    "config",
-    "airdrop",
-    "root.json",
-  );
+  // `out/` at the repo root, where `build-tree.ts` writes by default. Gitignored:
+  // real roots and proofs are published, not committed.
+  const path = join(import.meta.dirname, "..", "..", "out", "root.json");
 
   let published: Published;
   try {
     published = JSON.parse(readFileSync(path, "utf8")) as Published;
   } catch {
-    throw new Error(`No snapshot at ${path} — run \`pnpm airdrop:snapshot\` first.`);
+    throw new Error(`No snapshot at ${path} — run \`pnpm tree <snapshot.json>\` first.`);
   }
 
   if (!/^[0-9a-f]{64}$/i.test(published.root)) {

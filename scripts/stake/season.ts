@@ -1,9 +1,9 @@
 /**
  * Opens a season and funds its reward pool.
  *
- *   pnpm season:devnet                    # the default in config.ts
- *   pnpm season:devnet -- --seconds 600   # short, so a full claim can be rehearsed
- *   pnpm season:devnet -- --dry-run
+ *   pnpm stake:season:devnet                    # the default in config.ts
+ *   pnpm stake:season:devnet -- --seconds 600   # short, so a full claim can be rehearsed
+ *   pnpm stake:season:devnet -- --dry-run
  *
  * The pool moves out of the deployer's own token account in the same
  * transaction, so `reward_vault.amount == reward_pool` holds from the moment the
@@ -58,7 +58,7 @@ const config = configPda();
 
 const account = await connection.getAccountInfo(config);
 if (!account) {
-  throw new Error(`No config on ${cluster} — run \`pnpm init:${cluster}\` first.`);
+  throw new Error(`No config on ${cluster} — run \`pnpm stake:init:${cluster}\` first.`);
 }
 const current = readConfig(account.data);
 if (!current.admin.equals(admin.publicKey)) {
@@ -183,4 +183,4 @@ const open = instruction(
 
 console.log();
 await send(connection, [admin], [open]);
-console.log(`\nseason ${id} is open. \`pnpm harness:${cluster}\` to read it back.`);
+console.log(`\nseason ${id} is open. \`pnpm stake:harness:${cluster}\` to read it back.`);

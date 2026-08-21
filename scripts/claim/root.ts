@@ -1,15 +1,14 @@
 /**
  * Publishes the airdrop Merkle root.
  *
- *   pnpm root:devnet
- *   pnpm root:devnet -- --dry-run   # show what would change, send nothing
- *   pnpm root:devnet -- --force     # replace a root that is already published
+ *   pnpm claim:root:devnet
+ *   pnpm claim:root:devnet -- --dry-run   # show what would change, send nothing
+ *   pnpm claim:root:devnet -- --force     # replace a root that is already published
  *
- * The root comes from `src/config/airdrop/root.json`, written by
- * `pnpm airdrop:snapshot` alongside the allocation list it hashes. Nothing is
- * accepted on the command line: the app serves proofs against the committed
- * list, so publishing anything else would leave every one of them failing on
- * chain.
+ * The root comes from `out/root.json`, written by `pnpm tree <snapshot.json>`
+ * alongside the proofs it hashes. Nothing is accepted on the command line: the
+ * app serves proofs against that same tree, so publishing anything else would
+ * leave every one of them failing on chain.
  *
  * This is the instruction that makes an airdrop claimable. Until it runs the
  * config holds a zero root and nothing verifies.
@@ -47,7 +46,7 @@ const configAddress = new PublicKey(deployment.airdrop.config);
 const account = await connection.getAccountInfo(configAddress);
 if (!account) {
   throw new Error(
-    `airdrop config ${configAddress.toBase58()} does not exist — run \`pnpm init:${cluster}\` first.`,
+    `airdrop config ${configAddress.toBase58()} does not exist — run \`pnpm claim:init:${cluster}\` first.`,
   );
 }
 
@@ -108,4 +107,4 @@ deployment.transactions.setRoot = signature;
 writeDeployment(cluster, deployment);
 
 console.log("\nroot published. fund the vault next:");
-console.log(`  pnpm fund:${cluster}`);
+console.log(`  pnpm claim:fund:${cluster}`);

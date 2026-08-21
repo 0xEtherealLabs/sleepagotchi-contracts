@@ -1,17 +1,17 @@
 /**
  * Reads the on-chain state. Read-only unless a write flag is passed.
  *
- *   pnpm harness:devnet                        # dump config, seasons, own position
- *   pnpm harness:devnet -- --stake 1000        # stake, co-signed by the devnet signer
- *   pnpm harness:devnet -- --unstake 1000
- *   pnpm harness:devnet -- --claim
- *   pnpm harness:devnet -- --sweep 0          # admin: take a closed season's remainder
+ *   pnpm stake:harness:devnet                        # dump config, seasons, own position
+ *   pnpm stake:harness:devnet -- --stake 1000        # stake, co-signed by the devnet signer
+ *   pnpm stake:harness:devnet -- --unstake 1000
+ *   pnpm stake:harness:devnet -- --claim
+ *   pnpm stake:harness:devnet -- --sweep 0          # admin: take a closed season's remainder
  *
  * Amounts are whole tokens; they are scaled by the mint's decimals here.
  *
  * A live cluster proves things LiteSVM cannot: real rent, real ATA creation, the
  * real token program, and a clock nobody controls. Open a short season first —
- * `pnpm season:devnet -- --seconds 600` — or there is nothing to claim for a week.
+ * `pnpm stake:season:devnet -- --seconds 600` — or there is nothing to claim for a week.
  */
 
 import {
@@ -62,7 +62,7 @@ const multiplier = Number(flag("multiplier") ?? 10_000);
 const config = configPda();
 const account = await connection.getAccountInfo(config);
 if (!account) {
-  throw new Error(`No config on ${cluster} — run \`pnpm init:${cluster}\` first.`);
+  throw new Error(`No config on ${cluster} — run \`pnpm stake:init:${cluster}\` first.`);
 }
 const current = readConfig(account.data);
 
@@ -137,7 +137,7 @@ const liveSeason = async (): Promise<bigint> => {
     if (now >= Number(season.startTs) && now < Number(season.endTs)) return id;
   }
 
-  throw new Error("No live season. Open one with `pnpm season:devnet`.");
+  throw new Error("No live season. Open one with `pnpm stake:season:devnet`.");
 };
 
 const tokenAccount = getAssociatedTokenAddressSync(mint, admin.publicKey);

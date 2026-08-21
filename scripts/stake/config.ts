@@ -29,7 +29,7 @@ export const CLUSTERS: Record<ClusterName, ClusterConfig> = {
 };
 
 /**
- * The season `pnpm season:devnet` opens with no arguments.
+ * The season `pnpm stake:season:devnet` opens with no arguments.
  *
  * Deliberately not the shape of a real season: it starts immediately so there is
  * nothing to wait for, and runs a week so the whole lifecycle can be exercised

@@ -1,7 +1,7 @@
 /**
  * Initializes both programs on a cluster and writes the deployment artifact.
  *
- *   pnpm init:devnet
+ *   pnpm claim:init:devnet
  *
  * Deploy the bytecode first — `anchor deploy --provider.cluster devnet` — this
  * only creates the config PDAs and vaults. Kept separate because the two have

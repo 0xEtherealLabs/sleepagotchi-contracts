@@ -1,13 +1,13 @@
 /**
  * Initializes the program on a cluster and writes the deployment artifact.
  *
- *   pnpm init:devnet
+ *   pnpm stake:init:devnet
  *
  * Deploy the bytecode first — `anchor program deploy --provider.cluster devnet` —
  * this only creates the config PDA. Kept separate because the two have different
  * idempotency: a deploy re-runs as an upgrade, `initialize` cannot run twice.
  *
- * No season exists afterwards. `pnpm season:devnet` opens one.
+ * No season exists afterwards. `pnpm stake:season:devnet` opens one.
  */
 
 import { Connection, PublicKey } from "@solana/web3.js";
@@ -75,4 +75,4 @@ const deployment: Deployment = {
 
 writeDeployment(cluster, deployment);
 console.log(`\nwrote ${deploymentPath(cluster)}`);
-console.log("add the cluster to deployments/index.ts, then `pnpm season:devnet`");
+console.log("add the cluster to deployments/index.ts, then `pnpm stake:season:devnet`");

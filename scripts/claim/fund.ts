@@ -1,8 +1,8 @@
 /**
  * Funds the airdrop vault with exactly what the tree owes.
  *
- *   pnpm fund:devnet
- *   pnpm fund:devnet -- --dry-run
+ *   pnpm claim:fund:devnet
+ *   pnpm claim:fund:devnet -- --dry-run
  *
  * The total is knowable — it is the sum of every allocation — so the vault gets
  * that and not a round number. An underfunded vault fails the last claimants

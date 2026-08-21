@@ -226,7 +226,7 @@ export function readDeployment(cluster: ClusterName): Deployment {
   try {
     return JSON.parse(readFileSync(deploymentPath(cluster), "utf8")) as Deployment;
   } catch {
-    throw new Error(`No deployment on ${cluster} — run \`pnpm init:${cluster}\` first.`);
+    throw new Error(`No deployment on ${cluster} — run \`pnpm stake:init:${cluster}\` first.`);
   }
 }
 

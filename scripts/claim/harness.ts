@@ -1,8 +1,8 @@
 /**
  * Reads the on-chain state of both programs. Read-only unless `--claim` is passed.
  *
- *   pnpm harness:devnet                # dump state, sign nothing
- *   pnpm harness:devnet -- --claim     # full rehearsal, see below
+ *   pnpm claim:harness:devnet                # dump state, sign nothing
+ *   pnpm claim:harness:devnet -- --claim     # full rehearsal, see below
  *
  * `--claim` publishes a one-wallet root for the deployer, funds the airdrop vault
  * from the deployer's own tokens, and claims it. It is a real end-to-end exercise

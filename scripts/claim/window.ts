@@ -1,8 +1,8 @@
 /**
  * Sets the airdrop claim window.
  *
- *   pnpm window:devnet -- --start 2026-09-08T12:00:00Z --end 2026-12-08T12:00:00Z
- *   pnpm window:devnet -- --start now --end 2027-09-08T12:00:00Z
+ *   pnpm claim:window:devnet -- --start 2026-09-08T12:00:00Z --end 2026-12-08T12:00:00Z
+ *   pnpm claim:window:devnet -- --start now --end 2027-09-08T12:00:00Z
  *
  * The program enforces only that the start precedes the end. Everything else
  * checked here is a way to close a window by accident — and a window that has
@@ -55,7 +55,7 @@ const end = flag("end");
 
 if (!start || !end) {
   throw new Error(
-    'usage: pnpm window:<cluster> -- --start <iso|now> --end <iso> [--dry-run] [--force]',
+    'usage: pnpm claim:window:<cluster> -- --start <iso|now> --end <iso> [--dry-run] [--force]',
   );
 }
 
@@ -87,7 +87,7 @@ const configAddress = new PublicKey(deployment.airdrop.config);
 const account = await connection.getAccountInfo(configAddress);
 if (!account) {
   throw new Error(
-    `airdrop config ${configAddress.toBase58()} does not exist — run \`pnpm init:${cluster}\` first.`,
+    `airdrop config ${configAddress.toBase58()} does not exist — run \`pnpm claim:init:${cluster}\` first.`,
   );
 }
 
