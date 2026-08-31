@@ -70,8 +70,20 @@ export const CLUSTERS: Record<ClusterName, ClusterConfig> = {
   },
 
   "mainnet-beta": {
-    rpcUrl:
-      "https://mainnet.helius-rpc.com/?api-key=07de1afc-dc76-4552-9b07-019969f26021",
+    /*
+     * Public endpoint only, and deliberately so — never paste a keyed URL here.
+     *
+     * The app imports `CLUSTERS` into `src/config/token.config.ts`, which client
+     * components import, so every field of every entry is emitted verbatim into
+     * the browser bundle regardless of which cluster the build selects. A URL
+     * with an API key in it is a published API key.
+     *
+     * The deploy scripts need something better than this — the public endpoint
+     * rate-limits a mint hard enough to matter — so they read `SOLANA_RPC_URL`
+     * from the environment and fall back to this. The app's server does the same
+     * in `src/services/rpc.service.ts`. Put the keyed provider URL there.
+     */
+    rpcUrl: "https://api.mainnet-beta.solana.com",
     name: "Sleepagotchi",
     symbol: "SLEEP",
     metadataUri: "",

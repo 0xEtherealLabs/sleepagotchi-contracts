@@ -78,7 +78,10 @@ const main = async () => {
   const treasury = config.treasury
     ? new PublicKey(config.treasury)
     : deployer.publicKey;
-  const connection = new Connection(config.rpcUrl, "confirmed");
+  const connection = new Connection(
+    process.env.SOLANA_RPC_URL ?? config.rpcUrl,
+    "confirmed",
+  );
 
   const before = await getMint(connection, mint);
 
