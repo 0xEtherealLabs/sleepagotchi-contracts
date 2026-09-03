@@ -2,7 +2,8 @@
 
 Two Anchor programs that pay $SLEEP out of a vault the program itself controls.
 Both are pull-based: the user submits and pays for the transaction, and a PDA
-signs the transfer out.
+signs the transfer out. Neither is the push airdrop, which involves no program at
+all and lives in [token/README.md](token/README.md#push-airdrop).
 
 | Program | Pays for | Authorization |
 | --- | --- | --- |

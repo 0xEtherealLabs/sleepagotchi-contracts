@@ -21,6 +21,8 @@
     "claim:window:devnet": "pnpm with-env scripts/claim/window.ts devnet",
     "claim:fund:devnet": "pnpm with-env scripts/claim/fund.ts devnet",
     "claim:harness:devnet": "pnpm with-env scripts/claim/harness.ts devnet",
+    "airdrop:push:devnet": "pnpm with-env token/airdrop.ts devnet",
+    "airdrop:push:mainnet": "pnpm with-env token/airdrop.ts mainnet-beta",
     "stake:init:devnet": "pnpm with-env scripts/stake/init.ts devnet",
     "stake:season:devnet": "pnpm with-env scripts/stake/season.ts devnet",
     "stake:harness:devnet": "pnpm with-env scripts/stake/harness.ts devnet",

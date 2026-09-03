@@ -23,6 +23,7 @@ does.
 | [`config.ts`](config.ts) | Token parameters, per-network config, and the metadata document |
 | [`deploy.ts`](deploy.ts) | Creates the mint |
 | [`transfer.ts`](transfer.ts) | Sends tokens from the treasury |
+| [`airdrop.ts`](airdrop.ts) | Push airdrop: sends to every address on a list, resumably |
 | [`upload.ts`](upload.ts) | Pins the image and metadata document to IPFS |
 | [`rename.ts`](rename.ts) | Rewrites name, symbol and uri on chain |
 | [`verify.ts`](verify.ts) | Checks the account, the document and the image |
@@ -40,6 +41,61 @@ pnpm token:transfer:devnet <recipient> <amount>
 ```
 
 Amount is in whole tokens (`1000`, `12.5`).
+
+## Push airdrop
+
+`airdrop.ts` is the other half of the airdrop story. The pull airdrop
+(`sleepagotchi_airdrop`, see [../claim-programs.md](../claim-programs.md))
+publishes a Merkle root into a program and waits for people to come and claim
+against it. This pushes instead: no program, no vault, no proof, no receipt —
+plain SPL transfers signed by the wallet holding the tokens, packed a handful of
+recipients to a transaction. Recipients do nothing and pay nothing.
+
+The trade is who pays and who is trusted. The sender pays every fee and the
+~0.002 SOL of rent for each recipient with no $SLEEP account yet, so a push to
+thousands of wallets is SOL that a pull airdrop never spends — and it spends it
+on everyone, including the majority who would never have claimed. In exchange
+there is nothing on chain to audit, nothing to get wrong in a proof, and nobody
+left holding an unclaimed allocation.
+
+The list is `<address>,<amount>` per line, or the same
+`{ "<address>": "<amount>" }` JSON that `pnpm tree` takes as a snapshot, so one
+file can be pushed or published as a root without being rewritten. Amounts are
+base units unless `--tokens` is passed.
+
+```bash
+pnpm airdrop:push:devnet recipients.csv --tokens --dry-run
+pnpm airdrop:push:devnet recipients.csv --tokens --limit 5
+pnpm airdrop:push:devnet recipients.csv --tokens
+```
+
+| Flag | |
+| --- | --- |
+| `--tokens` | Amounts are whole tokens (`12.5`) rather than base units |
+| `--base-units` | Confirms a list that adds up to less than one $SLEEP really is in base units |
+| `--limit N` | Send to the first `N` unpaid recipients only — a rehearsal on a handful before the rest |
+| `--priority <microLamports>` | Compute unit price, for a congested mainnet |
+| `--dry-run` | Prints the plan, the cost and any shortfall. Sends nothing |
+| `--yes` | Required on mainnet |
+
+**Every confirmed transfer is written to `out/airdrop-<cluster>-<list>.json`, and
+a re-run skips whatever is already in it.** That is the whole recovery story: a
+run that dies at recipient 900 of 4,000 — rate limit, closed laptop, expired
+blockhash — is finished by running the same command again. The ledger pins the
+amount each address was paid as well as the signature, so an edited list cannot
+quietly top someone up; it stops instead and names the address.
+
+Batches are packed by measuring the compiled transaction rather than by a fixed
+count, because a batch whose recipients all need a token account created fits
+fewer of them than one where the accounts already exist. Each batch is signed
+before it is sent, so a confirmation that times out is looked up by signature
+rather than assumed lost and paid twice.
+
+Unlike `transfer.ts` this does not refuse to run once `treasury` is set. A
+multisig cannot sign four thousand transactions; it funds the pushing wallet
+with a tranche in one proposal, and that wallet is what signs here. Fund it with
+a tranche, not the supply — this script's blast radius is whatever the wallet it
+signs with holds.
 
 ## Identity
 

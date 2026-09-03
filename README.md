@@ -80,7 +80,7 @@ Solana CLI's own keypair by default.
 | `fixtures/` | Cross-implementation fixtures binding the Rust and TypeScript halves |
 | `deployments/claim/`, `deployments/stake/` | Per-cluster addresses, written on deploy |
 | `scripts/claim/`, `scripts/stake/` | Deploy, configuration and devnet harnesses |
-| `token/` | Deployment scripts for the SPL mint, and the image that is its identity. No program. [token/README.md](token/README.md) |
+| `token/` | Deployment scripts for the SPL mint, the push airdrop, and the image that is its identity. No program. [token/README.md](token/README.md) |
 | `lib/merkle.ts` | The airdrop Merkle tree. One implementation, three consumers |
 
 `scripts/` is namespaced per program group because both halves define their own

@@ -7,8 +7,10 @@ test-ledger
 .yarn
 .surfpool
 
-# `pnpm tree` output. Real roots and proofs are published, not committed —
-# `fixtures/` is the committed one, and it is only test data.
+# `pnpm tree` output, and the push airdrop's ledger. Real roots and proofs are
+# published, not committed — `fixtures/` is the committed one, and it is only
+# test data. Keep a copy of a mainnet airdrop ledger somewhere that is not here:
+# it is the record of who was paid, and a re-run needs it to know that.
 out
 
 # Devnet claim signer, generated on demand. Never funded, but still a secret.
