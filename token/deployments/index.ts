@@ -24,7 +24,7 @@ export const DEPLOYMENTS: Partial<Record<ClusterName, Artifact>> = {
   // token that can no longer change supply.
   //
   // `metadataUri` is empty: the metadata account exists with the right name and
-  // symbol but points at no document, so wallets render $SLEEP with no image and
+  // symbol but points at no document, so wallets render $CHI with no image and
   // no description. `METADATA_IS_MUTABLE` is true and the update authority is the
   // treasury, so fixing it is an upload plus a multisig-signed update — not a
   // redeploy.

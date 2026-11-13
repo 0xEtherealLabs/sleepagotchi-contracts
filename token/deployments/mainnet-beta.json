@@ -1,8 +1,8 @@
 {
   "cluster": "mainnet-beta",
   "mint": "sLEeph9ii4fs16HK6yJx6g8rEACDg3jx4Q8Q4xYRX44",
-  "name": "Sleepagotchi",
-  "symbol": "SLEEP",
+  "name": "Gotchi Labs",
+  "symbol": "CHI",
   "decimals": 9,
   "totalSupplyBaseUnits": "1000000000000000000",
   "metadataPda": "2H6aLJBAT3srTQzau7jG66horjeoLzBgQ4RqyyngtRoz",

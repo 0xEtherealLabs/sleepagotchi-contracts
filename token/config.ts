@@ -35,7 +35,7 @@ export type ClusterConfig = {
  */
 export const METADATA = {
   description:
-    "Sleepagotchi is the app that pays you to sleep better. SLEEP connects users, AI agents, wearables and wellness partners — and rewards you for sleeping well.",
+    "Sleepagotchi is the app that pays you to sleep better. CHI connects users, AI agents, wearables and wellness partners — and rewards you for sleeping well.",
   externalUrl: "https://sleepagotchi.com",
   /**
    * Repo-relative. The official 1024px render — square and transparent. Wallets
@@ -57,14 +57,14 @@ export const CLUSTERS: Record<ClusterName, ClusterConfig> = {
      *
      * This gives up a safety property that was deliberate: devnet used to deploy
      * as Napagotchi / NAPS precisely so a test token could never be mistaken for
-     * $SLEEP in a wallet or a screenshot. It now can be. The cluster badge in the
+     * $CHI in a wallet or a screenshot. It now can be. The cluster badge in the
      * app is the only thing left that distinguishes them, so treat any screenshot
      * of a balance as ambiguous unless it shows one.
      */
-    name: "Sleepagotchi",
-    symbol: "SLEEP",
+    name: "Gotchi Labs",
+    symbol: "CHI",
     metadataUri:
-      "https://73e3481d9d95554e14aeda900f0a3c88.ipfscdn.io/ipfs/QmSHUuZHcZujAUnZB9yqnAVjWwUbZgsTmgucgoJRt2tCQX",
+      "https://73e3481d9d95554e14aeda900f0a3c88.ipfscdn.io/ipfs/QmWTwmCBxtYrXGxQCxM8gmPrNs6hdthJehdERyV3xhyBLv",
     treasury: null,
     blockedReason: null,
   },
@@ -84,8 +84,8 @@ export const CLUSTERS: Record<ClusterName, ClusterConfig> = {
      * in `src/services/rpc.service.ts`. Put the keyed provider URL there.
      */
     rpcUrl: "https://api.mainnet-beta.solana.com",
-    name: "Sleepagotchi",
-    symbol: "SLEEP",
+    name: "Gotchi Labs",
+    symbol: "CHI",
     metadataUri: "",
     treasury: "5aZLE8mpDXQXLaayWtV52P4oTZLPsfkJjk37N2a1mfYU",
     blockedReason: null,
